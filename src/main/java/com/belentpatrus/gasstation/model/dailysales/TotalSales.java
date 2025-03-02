@@ -1,4 +1,4 @@
-package com.belentpatrus.gasstation.model;
+package com.belentpatrus.gasstation.model.dailysales;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

@@ -1,10 +1,10 @@
 package com.belentpatrus.gasstation.controller;
 
 
-import com.belentpatrus.gasstation.model.MerchandiseItemSale;
+import com.belentpatrus.gasstation.model.dailysales.MerchandiseItemSale;
 import com.belentpatrus.gasstation.service.MerchandiseItemSaleExcelReaderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -15,8 +15,8 @@ public class MerchandiseItemSaleExcelReaderController {
     @Autowired
     MerchandiseItemSaleExcelReaderService myService;
 
-    @PostMapping("/consumer")
-    public List<MerchandiseItemSale> readProductsFromExcel(String filePath) {
-        return myService.readProductsFromExcel(filePath);
+    @GetMapping("/consumer")
+    public List<MerchandiseItemSale> readProductsFromExcel() {
+        return myService.readProductsFromExcel("C:/Users/billy/Documents/Daily Merchandise Item Sales Reports/test.xls");
     }
 }

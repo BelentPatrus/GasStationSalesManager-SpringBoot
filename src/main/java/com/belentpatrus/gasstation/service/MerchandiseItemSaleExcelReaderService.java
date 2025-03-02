@@ -1,8 +1,8 @@
 package com.belentpatrus.gasstation.service;
 
-import com.belentpatrus.gasstation.model.Department;
-import com.belentpatrus.gasstation.model.MerchandiseItemSale;
-import com.belentpatrus.gasstation.model.ProductCategory;
+import com.belentpatrus.gasstation.model.dailysales.Department;
+import com.belentpatrus.gasstation.model.dailysales.MerchandiseItemSale;
+import com.belentpatrus.gasstation.model.dailysales.ProductCategory;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.util.NumberToTextConverter;
 import org.springframework.stereotype.Service;
