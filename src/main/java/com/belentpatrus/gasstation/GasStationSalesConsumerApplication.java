@@ -15,7 +15,7 @@ public class GasStationSalesConsumerApplication {
         MerchandiseItemSaleExcelReader myService = context.getBean(MerchandiseItemSaleExcelReader.class);
 
         // Use the bean directly
-        myService.readProductsFromExcel("C:/Users/billy/Documents/Daily Merchandise Item Sales Reports/test.xls");
+        myService.readProductsFromExcel("C:/Users/belent/Documents/Daily Merchandise Item Sales Reports/test.xls");
     }
 
 }
