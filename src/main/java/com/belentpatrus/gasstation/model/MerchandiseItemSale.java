@@ -20,6 +20,8 @@ public class MerchandiseItemSale {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long merchandiseItemId;
 
+    private Department department;
+    private ProductCategory productCategory;
     private String upc;
     private int number;
     private String description;
@@ -29,7 +31,9 @@ public class MerchandiseItemSale {
     private double unitRetail;
     private double extendedRetail;
 
-    public MerchandiseItemSale(String upc, int number, String description, String packageDescription, int packageQuantity, int quantitySold, double unitRetail, double extendedRetail) {
+    public MerchandiseItemSale(Department department, ProductCategory productCategory,String upc, int number, String description, String packageDescription, int packageQuantity, int quantitySold, double unitRetail, double extendedRetail) {
+        this.department = department;
+        this.productCategory = productCategory;
         this.upc = upc;
         this.number = number;
         this.description = description;
