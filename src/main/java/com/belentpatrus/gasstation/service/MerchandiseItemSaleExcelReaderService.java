@@ -1,5 +1,6 @@
 package com.belentpatrus.gasstation.service;
 
+import com.belentpatrus.gasstation.model.dailysales.DailyMerchandiseSales;
 import com.belentpatrus.gasstation.model.dailysales.Department;
 import com.belentpatrus.gasstation.model.dailysales.MerchandiseItemSale;
 import com.belentpatrus.gasstation.model.dailysales.ProductCategory;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiConsumer;
@@ -22,7 +25,7 @@ import org.apache.poi.ss.usermodel.*;
 @Service
 public class MerchandiseItemSaleExcelReaderService {
 
-    private static final int DEPARTMENT_COLUMN_INDEX = 0;
+    private static final int DEPARTMENT_COLUMN_INDEX_AND_DATE_INDEX = 0;
     private static final int PRODUCT_CATEGORY_COLUMN_INDEX = 2;
     private static final int UPC_COLUMN_INDEX = 4;
     private static final int NUMBER_COLUMN_INDEX = 5;
@@ -54,20 +57,24 @@ public class MerchandiseItemSaleExcelReaderService {
      * @param filePath path to the Excel file
      * @return list of merchandise item sales
      */
-    public List<MerchandiseItemSale> readProductsFromExcel(String filePath) {
+    public DailyMerchandiseSales readProductsFromExcel(String filePath) {
+        DailyMerchandiseSales dailyMerchandiseSales = new DailyMerchandiseSales();
         List<MerchandiseItemSale> products = new ArrayList<MerchandiseItemSale>();
+        LocalDate date = null;
         boolean isData = false;
         Department department = null;
         ProductCategory productCategory = null;
         Pattern departmentPattern = Pattern.compile("Department:\\s*(\\d+)");
         Pattern productCategoryPattern = Pattern.compile("Product Category:\\s*(\\d+)");
+        Pattern datePattern = Pattern.compile("Date:\\s*(\\d{2}/\\d{2}/\\d{4})");
         Matcher matcher;
+        AtomicBoolean skipRow = new AtomicBoolean(false);
+
         try(FileInputStream fis = new FileInputStream(new File(filePath));
             Workbook wb = WorkbookFactory.create(fis);) {
             Sheet sheet = wb.getSheetAt(0); // Assuming data is in the first sheet
-            AtomicBoolean skipRow = new AtomicBoolean(false);
+
             for (Row row : sheet) {
-                if(row.getRowNum() < 12) continue;
                 Iterator<Cell> cellIterator = row.cellIterator();
                 boolean dataRow = false;
                 MerchandiseItemSale product = new MerchandiseItemSale();
@@ -76,10 +83,17 @@ public class MerchandiseItemSaleExcelReaderService {
                     switch (cell.getCellType()) {
                         case STRING:
                             if(!dataRow){
-                                if(cell.getColumnIndex() == DEPARTMENT_COLUMN_INDEX){
+                                if(cell.getColumnIndex() == DEPARTMENT_COLUMN_INDEX_AND_DATE_INDEX){
                                     matcher = departmentPattern.matcher(cell.getStringCellValue());
                                     if (matcher.find()) {
                                         department = Department.fromId(Integer.parseInt(matcher.group(1)));
+                                    }
+                                    matcher = datePattern.matcher(cell.getStringCellValue());
+                                    if (matcher.find()) {
+                                        String[] dateParts = matcher.group(1).split("/");
+                                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+                                        date = LocalDate.parse(matcher.group(1), formatter);
+
                                     }
                                 }else if(cell.getColumnIndex() == PRODUCT_CATEGORY_COLUMN_INDEX){
                                     matcher = productCategoryPattern.matcher(cell.getStringCellValue());
@@ -113,6 +127,6 @@ public class MerchandiseItemSaleExcelReaderService {
         } catch (EncryptedDocumentException | IOException e) {
             e.printStackTrace();
         }
-        return products;
+        return new DailyMerchandiseSales(date,products);
     }
 }
