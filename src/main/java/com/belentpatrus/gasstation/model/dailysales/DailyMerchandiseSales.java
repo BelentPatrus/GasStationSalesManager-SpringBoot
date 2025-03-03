@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -21,11 +22,31 @@ public class DailyMerchandiseSales {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private LocalDate date;
+    private double totalExtendedRetail;
+    private int totalQuantitySold;
+
+    @ElementCollection
+    private List<Department> departmentSales = new ArrayList<>();
+
+    @ElementCollection
+    private List<ProductCategory> ProductCategory = new ArrayList<>();
+
     @OneToMany
     private List<MerchandiseItemSale> merchandiseItemSales;
 
     public DailyMerchandiseSales(LocalDate date, List<MerchandiseItemSale> merchandiseItemSales) {
         this.date = date;
         this.merchandiseItemSales = merchandiseItemSales;
+
     }
+
+    public void addDepartment(Department department) {
+        this.departmentSales.add(department);
+    }
+
+    public void addProductCategory(ProductCategory productCategory) {
+        this.ProductCategory.add(productCategory);
+    }
+
+
 }
