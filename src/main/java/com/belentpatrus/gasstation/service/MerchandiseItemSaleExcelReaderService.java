@@ -4,9 +4,11 @@ import com.belentpatrus.gasstation.model.dailysales.DailyMerchandiseSales;
 import com.belentpatrus.gasstation.model.dailysales.Department;
 import com.belentpatrus.gasstation.model.dailysales.MerchandiseItemSale;
 import com.belentpatrus.gasstation.model.dailysales.ProductCategory;
+import com.belentpatrus.gasstation.repository.DailyMerchandiseSalesRepository;
 import org.apache.logging.log4j.util.TriConsumer;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.util.NumberToTextConverter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -15,7 +17,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiConsumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,6 +26,9 @@ import org.apache.poi.ss.usermodel.*;
 
 @Service
 public class MerchandiseItemSaleExcelReaderService {
+
+    @Autowired
+    private DailyMerchandiseSalesRepository dailyMerchandiseSalesRepository;
 
     private static final Pattern departmentPattern = Pattern.compile("Department:\\s*(\\d+)");
     private static final Pattern productCategoryPattern = Pattern.compile("Product Category:\\s*(\\d+)");
@@ -108,6 +112,7 @@ public class MerchandiseItemSaleExcelReaderService {
                 if(product.getUpc() != null){
                     product.setProductCategory(dailyMerchandiseSales.getProductCategory().getLast());
                     product.setDepartment(dailyMerchandiseSales.getDepartmentSales().getLast());
+                    product.setDailyMerchandiseSales(dailyMerchandiseSales);
                     products.add(product);
                 }
             }
@@ -115,7 +120,7 @@ public class MerchandiseItemSaleExcelReaderService {
             e.printStackTrace();
         }
         dailyMerchandiseSales.setMerchandiseItemSales(products);
-        return dailyMerchandiseSales;
+        return dailyMerchandiseSalesRepository.save(dailyMerchandiseSales);
     }
 
     private void totalRow(Row row, DailyMerchandiseSales dailyMerchandiseSales) {

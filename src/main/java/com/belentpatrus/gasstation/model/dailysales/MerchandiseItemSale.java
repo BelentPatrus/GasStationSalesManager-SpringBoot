@@ -1,9 +1,6 @@
 package com.belentpatrus.gasstation.model.dailysales;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,6 +26,10 @@ public class MerchandiseItemSale {
     private int quantitySold;
     private double unitRetail;
     private double extendedRetail;
+
+    @ManyToOne
+    @JoinColumn(name = "daily_merchandise_sales_id")
+    private DailyMerchandiseSales dailyMerchandiseSales;
 
     public MerchandiseItemSale(Department department, ProductCategory productCategory,String upc, int number, String description, String packageDescription, int packageQuantity, int quantitySold, double unitRetail, double extendedRetail) {
         this.department = department;

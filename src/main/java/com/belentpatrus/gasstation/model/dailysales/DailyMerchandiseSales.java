@@ -31,7 +31,7 @@ public class DailyMerchandiseSales {
     @ElementCollection
     private List<ProductCategory> ProductCategory = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "dailyMerchandiseSales", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MerchandiseItemSale> merchandiseItemSales;
 
     public DailyMerchandiseSales(LocalDate date, List<MerchandiseItemSale> merchandiseItemSales) {

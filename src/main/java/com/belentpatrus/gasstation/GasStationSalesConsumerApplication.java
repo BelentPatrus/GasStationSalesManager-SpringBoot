@@ -10,12 +10,6 @@ public class GasStationSalesConsumerApplication {
 
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(GasStationSalesConsumerApplication.class, args);
-
-        // Get your bean
-        MerchandiseItemSaleExcelReaderService myService = context.getBean(MerchandiseItemSaleExcelReaderService.class);
-
-        // Use the bean directly
-        myService.readProductsFromExcel("C:/Users/belent/Documents/Daily Merchandise Item Sales Reports/test.xls");
     }
 
 }
