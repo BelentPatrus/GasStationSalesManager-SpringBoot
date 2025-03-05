@@ -92,8 +92,6 @@ public class GasStationSalesConsumerApplication {
                     new Product("889392001907", "CELSIUS LIMONADE MELON DEAU 355ML", "Celsius", Department.CONVENIENCE, ProductCategory.PACKAGED_BEVERAGE, 2.66),
                     new Product("889392607277", "CELSIUS PEACH VIBE", "Celsius", Department.CONVENIENCE, ProductCategory.PACKAGED_BEVERAGE, 3.00),
                     new Product("889392610314", "CELSIUS ORANGE", "Celsius", Department.CONVENIENCE, ProductCategory.PACKAGED_BEVERAGE, 4.29)
-
-
                     );
 
             productRepository.saveAll(products);

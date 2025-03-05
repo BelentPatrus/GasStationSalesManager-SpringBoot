@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SyncDailyMerchandiseSalesAndProductDTO {
-    List<MerchandiseItemSale> notSyncedMerchandiseItemSales = new ArrayList<>();
+    List<MerchandiseItemSaleDTO> notSyncedMerchandiseItemSales = new ArrayList<>();
 
 
 }

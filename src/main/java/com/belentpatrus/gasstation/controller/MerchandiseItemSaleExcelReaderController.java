@@ -34,7 +34,7 @@ public class MerchandiseItemSaleExcelReaderController {
     }
     @GetMapping("/consumer")
     public DailyMerchandiseSales readProductsFromExcel() {
-        return myService.readProductsFromExcel("C:/Users/belent/Documents/Daily Merchandise Item Sales Reports/test.xls");
+        return myService.readProductsFromExcel("C:/Users/billy/Documents/Daily Merchandise Item Sales Reports/test.xls");
     }
 
     @GetMapping("/consumer/{date}")
