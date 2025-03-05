@@ -1,9 +1,9 @@
 package com.belentpatrus.gasstation.service;
 
 import com.belentpatrus.gasstation.model.dailysales.DailyMerchandiseSales;
-import com.belentpatrus.gasstation.model.dailysales.Department;
+import com.belentpatrus.gasstation.model.dailysales.enums.Department;
 import com.belentpatrus.gasstation.model.dailysales.MerchandiseItemSale;
-import com.belentpatrus.gasstation.model.dailysales.ProductCategory;
+import com.belentpatrus.gasstation.model.dailysales.enums.ProductCategory;
 import com.belentpatrus.gasstation.repository.DailyMerchandiseSalesRepository;
 import org.apache.logging.log4j.util.TriConsumer;
 import org.apache.poi.EncryptedDocumentException;
@@ -27,8 +27,12 @@ import org.apache.poi.ss.usermodel.*;
 @Service
 public class MerchandiseItemSaleExcelReaderService {
 
-    @Autowired
     private DailyMerchandiseSalesRepository dailyMerchandiseSalesRepository;
+
+    @Autowired
+    public MerchandiseItemSaleExcelReaderService(DailyMerchandiseSalesRepository dailyMerchandiseSalesRepository) {
+        this.dailyMerchandiseSalesRepository = dailyMerchandiseSalesRepository;
+    }
 
     private static final Pattern departmentPattern = Pattern.compile("Department:\\s*(\\d+)");
     private static final Pattern productCategoryPattern = Pattern.compile("Product Category:\\s*(\\d+)");

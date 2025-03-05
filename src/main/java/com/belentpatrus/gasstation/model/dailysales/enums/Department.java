@@ -1,4 +1,4 @@
-package com.belentpatrus.gasstation.model.dailysales;
+package com.belentpatrus.gasstation.model.dailysales.enums;
 
 public enum Department {
     CIGARETTES(2),

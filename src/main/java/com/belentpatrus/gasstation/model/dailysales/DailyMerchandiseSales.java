@@ -1,5 +1,7 @@
 package com.belentpatrus.gasstation.model.dailysales;
 
+import com.belentpatrus.gasstation.model.dailysales.enums.Department;
+import com.belentpatrus.gasstation.model.dailysales.enums.ProductCategory;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,8 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -29,7 +29,7 @@ public class DailyMerchandiseSales {
     private List<Department> departmentSales = new ArrayList<>();
 
     @ElementCollection
-    private List<ProductCategory> ProductCategory = new ArrayList<>();
+    private List<com.belentpatrus.gasstation.model.dailysales.enums.ProductCategory> ProductCategory = new ArrayList<>();
 
     @OneToMany(mappedBy = "dailyMerchandiseSales", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MerchandiseItemSale> merchandiseItemSales;
