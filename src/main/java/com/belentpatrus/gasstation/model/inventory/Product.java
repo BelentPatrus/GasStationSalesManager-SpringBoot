@@ -1,6 +1,8 @@
 package com.belentpatrus.gasstation.model.inventory;
 
 
+import com.belentpatrus.gasstation.model.dailysales.enums.Department;
+import com.belentpatrus.gasstation.model.dailysales.enums.ProductCategory;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -13,11 +15,12 @@ import org.springframework.stereotype.Component;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class product {
+public class Product {
     @Id
     private String upc;
     private String description;
     private String brand;
-    private String category;
-    private String baseCost;
+    private Department department;
+    private ProductCategory productCategory;
+    private double baseCost;
 }
