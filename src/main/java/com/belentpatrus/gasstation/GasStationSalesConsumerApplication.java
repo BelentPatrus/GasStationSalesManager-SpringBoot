@@ -91,7 +91,8 @@ public class GasStationSalesConsumerApplication {
                     new Product("827064061002", "59E RUE EAU DE SOURCE 500ml", "59E Rue", Department.CONVENIENCE, ProductCategory.PACKAGED_BEVERAGE, 1.49),
                     new Product("889392001907", "CELSIUS LIMONADE MELON DEAU 355ML", "Celsius", Department.CONVENIENCE, ProductCategory.PACKAGED_BEVERAGE, 2.66),
                     new Product("889392607277", "CELSIUS PEACH VIBE", "Celsius", Department.CONVENIENCE, ProductCategory.PACKAGED_BEVERAGE, 3.00),
-                    new Product("889392610314", "CELSIUS ORANGE", "Celsius", Department.CONVENIENCE, ProductCategory.PACKAGED_BEVERAGE, 4.29)
+                    new Product("889392610314", "CELSIUS ORANGE", "Celsius", Department.CONVENIENCE, ProductCategory.PACKAGED_BEVERAGE, 4.29),
+                    new Product("64900000485", "HUBBA BUBBA TAPE ORIGINAL", "HUBBA BUBBA", Department.CONVENIENCE, ProductCategory.CANDY, 2.99)
                     );
 
             productRepository.saveAll(products);

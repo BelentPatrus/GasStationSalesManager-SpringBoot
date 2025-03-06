@@ -33,12 +33,12 @@ public class MerchandiseItemSaleExcelReaderController {
 
     }
     @GetMapping("/consumer")
-    public DailyMerchandiseSales readProductsFromExcel() {
-        return myService.readProductsFromExcel("C:/Users/billy/Documents/Daily Merchandise Item Sales Reports/test.xls");
+    public void readProductsFromExcel() {
+        myService.readProductsFromExcel("C:/Users/billy/Documents/Daily Merchandise Item Sales Reports/test.xls");
     }
 
     @GetMapping("/consumer/{date}")
-    public DailyMerchandiseSales getSummary(@PathVariable String date) {
+    public DailyMerchandiseSalesSummaryDTO getSummary(@PathVariable String date) {
         LocalDate localDate = LocalDate.parse(date);
         return dailyMerchandiseSalesSummaryService.getDailyMerchandiseSales(localDate);
     }
@@ -56,8 +56,8 @@ public class MerchandiseItemSaleExcelReaderController {
     @GetMapping("/consumer/sync/{date}")
     public SyncDailyMerchandiseSalesAndProductDTO returnNotSynced(@PathVariable String date) {
         LocalDate localDate = LocalDate.parse(date);
-        DailyMerchandiseSales dailyMerchandiseSales = dailyMerchandiseSalesSummaryService.getDailyMerchandiseSales(localDate);
-        return syncService.notSyncedMerchandiseItemSales(dailyMerchandiseSales);
+        DailyMerchandiseSalesSummaryDTO dailyMerchandiseSalesSummaryDTO = dailyMerchandiseSalesSummaryService.getDailyMerchandiseSales(localDate);
+        return syncService.notSyncedMerchandiseItemSales(dailyMerchandiseSalesSummaryDTO);
 
     }
 

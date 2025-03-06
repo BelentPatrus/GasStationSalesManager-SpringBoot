@@ -6,10 +6,13 @@ import com.belentpatrus.gasstation.model.dailysales.MerchandiseItemSale;
 import com.belentpatrus.gasstation.model.dailysales.enums.ProductCategory;
 import com.belentpatrus.gasstation.repository.DailyMerchandiseSalesRepository;
 import com.belentpatrus.gasstation.service.dto.DailyMerchandiseSalesSummaryDTO;
+import com.belentpatrus.gasstation.service.dto.MerchandiseItemSaleDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DailyMerchandiseSalesSummaryService {
@@ -21,8 +24,17 @@ public class DailyMerchandiseSalesSummaryService {
         this.repo = repo;
     }
 
-    public DailyMerchandiseSales getDailyMerchandiseSales(LocalDate date){
-        return repo.findByDate(date).getFirst();
+    public DailyMerchandiseSalesSummaryDTO getDailyMerchandiseSales(LocalDate date){
+        DailyMerchandiseSales dailyMerchandiseSales = repo.findByDate(date).getFirst();
+        List<MerchandiseItemSaleDTO> dtoList = dailyMerchandiseSales.getMerchandiseItemSales()
+                .stream()
+                .map(MerchandiseItemSaleDTO::new)
+                .collect(Collectors.toList());
+        DailyMerchandiseSalesSummaryDTO dto = new DailyMerchandiseSalesSummaryDTO(dailyMerchandiseSales.getDate(), dailyMerchandiseSales.getTotalExtendedRetail(), dailyMerchandiseSales.getTotalQuantitySold());
+        dto.setMerchandiseItemSales(dtoList);
+
+        return dto;
+
     }
 
     public double getTotalSoldByDepartment(Long id, Department department){
@@ -38,13 +50,19 @@ public class DailyMerchandiseSalesSummaryService {
 
     public DailyMerchandiseSalesSummaryDTO getDailyMerchandiseSalesSummary(long id) {
         DailyMerchandiseSales dailyMerchandiseSales = repo.findById(id).get();
+        DailyMerchandiseSalesSummaryDTO dto = populateDailyMerchandiseSalesSummaryDTO(dailyMerchandiseSales);
+
+        return dto;
+    }
+
+    private DailyMerchandiseSalesSummaryDTO populateDailyMerchandiseSalesSummaryDTO(DailyMerchandiseSales dailyMerchandiseSales){
         DailyMerchandiseSalesSummaryDTO dto = new DailyMerchandiseSalesSummaryDTO(dailyMerchandiseSales.getDate(), dailyMerchandiseSales.getTotalExtendedRetail(), dailyMerchandiseSales.getTotalQuantitySold());
         for(Department department : dailyMerchandiseSales.getDepartmentSales()) {
-            dto.getDepartmentSales().put(department, getTotalSoldByDepartment(id, department));
+            dto.getDepartmentSales().put(department, getTotalSoldByDepartment(dailyMerchandiseSales.getId(), department));
         }
 
         for(ProductCategory productCategory : dailyMerchandiseSales.getProductCategory()) {
-            dto.getProductCategorySales().put(productCategory, getTotalSoldByProductCategory(id, productCategory));
+            dto.getProductCategorySales().put(productCategory, getTotalSoldByProductCategory(dailyMerchandiseSales.getId(), productCategory));
         }
 
         return dto;

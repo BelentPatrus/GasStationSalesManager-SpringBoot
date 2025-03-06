@@ -8,7 +8,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Data
@@ -20,7 +22,7 @@ public class DailyMerchandiseSalesSummaryDTO {
     private Map<ProductCategory, Double> productCategorySales = new HashMap<>();
     private double totalExtendedRetail;
     private int totalQuantitySold;
-
+    private List<MerchandiseItemSaleDTO> merchandiseItemSales = new ArrayList<>();
 
     public DailyMerchandiseSalesSummaryDTO(LocalDate date, double totalExtendedRetail, int totalQuantitySold) {
         this.date = date;
