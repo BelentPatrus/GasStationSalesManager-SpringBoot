@@ -5,6 +5,8 @@ import com.belentpatrus.gasstation.model.dailysales.enums.Department;
 import com.belentpatrus.gasstation.model.dailysales.enums.ProductCategory;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,4 +25,17 @@ public class Product {
     private Department department;
     private ProductCategory productCategory;
     private double baseCost;
+
+    @ManyToOne
+    @JoinColumn(name = "inventory_id")
+    private Inventory inventory;
+
+    public Product(String upc, String description, String brand, Department department, ProductCategory productCategory, double baseCost) {
+        this.upc = upc;
+        this.description = description;
+        this.brand = brand;
+        this.department = department;
+        this.productCategory = productCategory;
+        this.baseCost = baseCost;
+    }
 }
