@@ -68,7 +68,9 @@ public class MerchandiseItemSaleExcelReaderService {
             }
             matcher = datePattern.matcher(cell.getStringCellValue());
             if (matcher.find()) {
-                sales.setDate(LocalDate.parse(matcher.group(1), DateTimeFormatter.ofPattern("MM/dd/yyyy")));
+                LocalDate date = LocalDate.parse(matcher.group(1), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+
+                sales.setDate(date);
             }
         });
         stringHandlers.put(PRODUCT_CATEGORY_COLUMN_INDEX, (sales,product, cell) -> {

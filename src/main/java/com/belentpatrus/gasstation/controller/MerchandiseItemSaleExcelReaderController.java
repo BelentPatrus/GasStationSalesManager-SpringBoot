@@ -23,20 +23,14 @@ import java.util.List;
 public class MerchandiseItemSaleExcelReaderController {
 
 
-    private MerchandiseItemSaleExcelReaderService myService;
     private DailyMerchandiseSalesSummaryService dailyMerchandiseSalesSummaryService;
     private SyncService syncService;
 
     @Autowired
-    public MerchandiseItemSaleExcelReaderController(MerchandiseItemSaleExcelReaderService myService, DailyMerchandiseSalesSummaryService dailyMerchandiseSalesSummaryService, SyncService syncService) {
-        this.myService = myService;
+    public MerchandiseItemSaleExcelReaderController(DailyMerchandiseSalesSummaryService dailyMerchandiseSalesSummaryService, SyncService syncService) {
         this.dailyMerchandiseSalesSummaryService = dailyMerchandiseSalesSummaryService;
         this.syncService = syncService;
 
-    }
-    @GetMapping("/consumer")
-    public void readProductsFromExcel() {
-        myService.readProductsFromExcel("C:/Users/billy/Documents/Daily Merchandise Item Sales Reports/test.xls");
     }
 
     @GetMapping("/consumer/{date}")

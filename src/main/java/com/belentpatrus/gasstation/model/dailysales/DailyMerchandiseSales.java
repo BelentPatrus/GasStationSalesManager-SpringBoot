@@ -22,6 +22,8 @@ public class DailyMerchandiseSales {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(unique = true)
     private LocalDate date;
     private double totalExtendedRetail;
     private int totalQuantitySold;
