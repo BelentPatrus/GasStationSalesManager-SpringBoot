@@ -32,6 +32,7 @@ public class DailyMerchandiseSalesSummaryService {
                 .collect(Collectors.toList());
         DailyMerchandiseSalesSummaryDTO dto = new DailyMerchandiseSalesSummaryDTO(dailyMerchandiseSales.getDate(), dailyMerchandiseSales.getTotalExtendedRetail(), dailyMerchandiseSales.getTotalQuantitySold());
         dto.setMerchandiseItemSales(dtoList);
+        populateDailyMerchandiseSalesSummaryDTO(dailyMerchandiseSales, dto);
 
         return dto;
 
@@ -47,16 +48,15 @@ public class DailyMerchandiseSalesSummaryService {
         return dailyMerchandiseSales.getMerchandiseItemSales().stream().filter(mis -> mis.getProductCategory().equals(productCategory)).mapToDouble(MerchandiseItemSale::getExtendedRetail).sum();
     }
 
-
-    public DailyMerchandiseSalesSummaryDTO getDailyMerchandiseSalesSummary(long id) {
-        DailyMerchandiseSales dailyMerchandiseSales = repo.findById(id).get();
-        DailyMerchandiseSalesSummaryDTO dto = populateDailyMerchandiseSalesSummaryDTO(dailyMerchandiseSales);
+    public DailyMerchandiseSalesSummaryDTO getDailyMerchandiseSalesSummary(LocalDate date) {
+        DailyMerchandiseSales dailyMerchandiseSales = repo.findByDate(date).getFirst();
+        DailyMerchandiseSalesSummaryDTO dto = new DailyMerchandiseSalesSummaryDTO(dailyMerchandiseSales.getDate(), dailyMerchandiseSales.getTotalExtendedRetail(), dailyMerchandiseSales.getTotalQuantitySold());
+       populateDailyMerchandiseSalesSummaryDTO(dailyMerchandiseSales,dto);
 
         return dto;
     }
 
-    private DailyMerchandiseSalesSummaryDTO populateDailyMerchandiseSalesSummaryDTO(DailyMerchandiseSales dailyMerchandiseSales){
-        DailyMerchandiseSalesSummaryDTO dto = new DailyMerchandiseSalesSummaryDTO(dailyMerchandiseSales.getDate(), dailyMerchandiseSales.getTotalExtendedRetail(), dailyMerchandiseSales.getTotalQuantitySold());
+    private void populateDailyMerchandiseSalesSummaryDTO(DailyMerchandiseSales dailyMerchandiseSales, DailyMerchandiseSalesSummaryDTO dto){
         for(Department department : dailyMerchandiseSales.getDepartmentSales()) {
             dto.getDepartmentSales().put(department, getTotalSoldByDepartment(dailyMerchandiseSales.getId(), department));
         }
@@ -64,7 +64,5 @@ public class DailyMerchandiseSalesSummaryService {
         for(ProductCategory productCategory : dailyMerchandiseSales.getProductCategory()) {
             dto.getProductCategorySales().put(productCategory, getTotalSoldByProductCategory(dailyMerchandiseSales.getId(), productCategory));
         }
-
-        return dto;
     }
 }

@@ -38,9 +38,10 @@ public class DailyMerchandiseSalesController {
         return dailyMerchandiseSalesSummaryService.getTotalSoldByDepartment(id, department);
     }
 
-    @GetMapping("/getsummary/{id}")
-    public DailyMerchandiseSalesSummaryDTO getSummary(@PathVariable long id) {
-        return dailyMerchandiseSalesSummaryService.getDailyMerchandiseSalesSummary(id);
+    @GetMapping("/getsummary/{date}")
+    public DailyMerchandiseSalesSummaryDTO getDepartmentSummary(@PathVariable String date) {
+        LocalDate localDate = LocalDate.parse(date);
+        return dailyMerchandiseSalesSummaryService.getDailyMerchandiseSalesSummary(localDate);
     }
 
     @GetMapping("/sync/{date}")
