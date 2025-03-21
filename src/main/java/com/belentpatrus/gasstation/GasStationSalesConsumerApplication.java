@@ -4,6 +4,7 @@ import com.belentpatrus.gasstation.model.dailysales.enums.Department;
 import com.belentpatrus.gasstation.model.dailysales.enums.ProductCategory;
 import com.belentpatrus.gasstation.model.inventory.Product;
 import com.belentpatrus.gasstation.repository.ProductRepository;
+import com.belentpatrus.gasstation.service.EmailService;
 import com.belentpatrus.gasstation.service.MerchandiseItemSaleExcelReaderService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -99,4 +100,12 @@ public class GasStationSalesConsumerApplication {
 //        };
 //    }
 
+
+    @Bean
+    public CommandLineRunner commandLineRunner() {
+        return args -> {
+            EmailService emailService = new EmailService();
+            emailService.getEmailExcelReport();
+        };
+    }
 }

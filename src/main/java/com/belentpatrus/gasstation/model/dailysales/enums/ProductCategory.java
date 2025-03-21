@@ -19,7 +19,8 @@ public enum ProductCategory {
     FROZEN_DISPENSED_BEVERAGES(280),
     PREPAID_CARDS(310),
     SCRATCH_LOTTO(320),
-    LOTTO(330);
+    LOTTO(330),
+    OTHER(-1);
 
 
     private int id;
@@ -37,7 +38,7 @@ public enum ProductCategory {
                 return category;
             }
         }
-        return null;
+        return OTHER;
     }
 
 }
