@@ -3,17 +3,22 @@ package com.belentpatrus.gasstation.service;
 import jakarta.mail.*;
 import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.search.FlagTerm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.Properties;
 
 @Service
 public class EmailService {
+
+    MerchandiseItemSaleExcelReaderService myService;
+
+    @Autowired
+    public EmailService(MerchandiseItemSaleExcelReaderService myService) {
+        this.myService = myService;
+    }
 
     private String emailUsername = "dailyreport42020@gmail.com";
     private String emailPassword = "hhxkropkktzafqfw"; // Your app password
@@ -42,10 +47,17 @@ public class EmailService {
                     MimeBodyPart attachmentPart = (MimeBodyPart) multipart.getBodyPart(1);
                     String fileName = attachmentPart.getFileName();
                     File file = new File(fileName);
-                    FileOutputStream fileOutputStream = new FileOutputStream(file);
-                    attachmentPart.writeTo(fileOutputStream);
-                    fileOutputStream.close();
-                    break;
+
+                    // Create a temporary file in the system's temp directory
+                    File tempFile = File.createTempFile("email_attachment_", "_" + fileName);
+
+                    FileOutputStream fos = new FileOutputStream(tempFile);
+                    InputStream is = attachmentPart.getInputStream();
+                    is.transferTo(fos);
+
+
+                    // Pass the file path to your method for processing
+                    myService.readProductsFromExcel(tempFile.getAbsolutePath());
                 }
             }
         } catch (NoSuchProviderException e) {

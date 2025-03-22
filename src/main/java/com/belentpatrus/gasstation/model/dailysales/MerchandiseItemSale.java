@@ -3,6 +3,7 @@ package com.belentpatrus.gasstation.model.dailysales;
 import com.belentpatrus.gasstation.model.dailysales.enums.Department;
 import com.belentpatrus.gasstation.model.dailysales.enums.ProductCategory;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,6 +21,8 @@ public class MerchandiseItemSale {
     private Long merchandiseItemId;
 
     private Department department;
+    @Column(nullable = true)
+    @Enumerated(EnumType.STRING)
     private ProductCategory productCategory;
     private String upc;
     private int number;
@@ -46,5 +49,6 @@ public class MerchandiseItemSale {
         this.unitRetail = unitRetail;
         this.extendedRetail = extendedRetail;
     }
+
 
 }

@@ -102,10 +102,10 @@ public class GasStationSalesConsumerApplication {
 
 
     @Bean
-    public CommandLineRunner commandLineRunner() {
+    public CommandLineRunner commandLineRunner(EmailService emailService) {  // Inject the bean
         return args -> {
-            EmailService emailService = new EmailService();
             emailService.getEmailExcelReport();
         };
     }
+
 }

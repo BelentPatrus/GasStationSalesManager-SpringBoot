@@ -20,7 +20,7 @@ public enum ProductCategory {
     PREPAID_CARDS(310),
     SCRATCH_LOTTO(320),
     LOTTO(330),
-    OTHER(-1);
+    OTHER(9999);
 
 
     private int id;
