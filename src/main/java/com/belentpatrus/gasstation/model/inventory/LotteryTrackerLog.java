@@ -12,10 +12,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class LotteryTracker {
+public class LotteryTrackerLog {
 
     @Id
     private LocalDate date;
+    private boolean logComplete;
+    private boolean morningLogComplete;
 
     // Morning Count
     private int morningCount2;   // $2 tickets count in the morning
@@ -67,7 +69,14 @@ public class LotteryTracker {
     private int eodCount50;  // $50 tickets count in the morning
     private int eodCount100; // $100 tickets count in the morning
 
-    private boolean logComplete;
+
+    public LotteryTrackerLog(LocalDate date) {
+        this.date = date;
+        this.logComplete = false;
+        this.morningLogComplete = false;
+    }
+
+
 
 
 }

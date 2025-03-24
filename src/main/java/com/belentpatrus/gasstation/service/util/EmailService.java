@@ -1,10 +1,9 @@
-package com.belentpatrus.gasstation.service;
+package com.belentpatrus.gasstation.service.util;
 
 import jakarta.mail.*;
 import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.search.FlagTerm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.*;

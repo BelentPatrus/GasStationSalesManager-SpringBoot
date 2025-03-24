@@ -1,17 +1,14 @@
-package com.belentpatrus.gasstation.service;
+package com.belentpatrus.gasstation.service.util;
 
-import com.belentpatrus.gasstation.model.dailysales.DailyMerchandiseSales;
-import com.belentpatrus.gasstation.model.dailysales.MerchandiseItemSale;
 import com.belentpatrus.gasstation.model.inventory.Product;
-import com.belentpatrus.gasstation.repository.DailyMerchandiseSalesRepository;
-import com.belentpatrus.gasstation.repository.ProductRepository;
+import com.belentpatrus.gasstation.repository.dailysales.DailyMerchandiseSalesRepository;
+import com.belentpatrus.gasstation.repository.inventory.ProductRepository;
 import com.belentpatrus.gasstation.service.dto.DailyMerchandiseSalesSummaryDTO;
 import com.belentpatrus.gasstation.service.dto.MerchandiseItemSaleDTO;
 import com.belentpatrus.gasstation.service.dto.SyncDailyMerchandiseSalesAndProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

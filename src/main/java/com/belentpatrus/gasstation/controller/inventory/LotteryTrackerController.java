@@ -1,0 +1,26 @@
+package com.belentpatrus.gasstation.controller.inventory;
+
+import com.belentpatrus.gasstation.model.inventory.LotteryTrackerLog;
+import com.belentpatrus.gasstation.service.inventory.LotteryTrackerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+@CrossOrigin(origins = "http://localhost:5173")
+@RequestMapping("/lottery")
+@RestController
+public class LotteryTrackerController {
+    LotteryTrackerService lotteryService;
+
+    @Autowired
+    public LotteryTrackerController(LotteryTrackerService lotteryService) {
+        this.lotteryService = lotteryService;
+    }
+
+
+    @GetMapping("/log/{date}")
+    public LotteryTrackerLog getLotteryLog(@PathVariable String date) {
+        LocalDate parsedDate = LocalDate.parse(date);
+        return lotteryService.getLotteryLog(parsedDate);
+    }
+}

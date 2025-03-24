@@ -1,4 +1,4 @@
-package com.belentpatrus.gasstation.repository;
+package com.belentpatrus.gasstation.repository.dailysales;
 
 import com.belentpatrus.gasstation.model.dailysales.DailyMerchandiseSales;
 import org.springframework.data.jpa.repository.JpaRepository;

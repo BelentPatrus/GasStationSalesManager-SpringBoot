@@ -1,9 +1,8 @@
-package com.belentpatrus.gasstation.controller;
+package com.belentpatrus.gasstation.controller.dailysales;
 
 import com.belentpatrus.gasstation.model.inventory.DailyCashTracker;
-import com.belentpatrus.gasstation.service.DailyCashTrackerService;
+import com.belentpatrus.gasstation.service.dailysales.DailyCashTrackerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -1,18 +1,11 @@
 package com.belentpatrus.gasstation;
 
-import com.belentpatrus.gasstation.model.dailysales.enums.Department;
-import com.belentpatrus.gasstation.model.dailysales.enums.ProductCategory;
-import com.belentpatrus.gasstation.model.inventory.Product;
-import com.belentpatrus.gasstation.repository.ProductRepository;
-import com.belentpatrus.gasstation.service.EmailService;
-import com.belentpatrus.gasstation.service.MerchandiseItemSaleExcelReaderService;
+import com.belentpatrus.gasstation.service.util.EmailService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-
-import java.util.List;
 
 @SpringBootApplication
 public class GasStationSalesConsumerApplication {

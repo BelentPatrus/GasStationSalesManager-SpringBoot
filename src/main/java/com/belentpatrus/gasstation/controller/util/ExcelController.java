@@ -1,7 +1,5 @@
-package com.belentpatrus.gasstation.controller;
-import com.belentpatrus.gasstation.service.DailyMerchandiseSalesSummaryService;
-import com.belentpatrus.gasstation.service.MerchandiseItemSaleExcelReaderService;
-import com.belentpatrus.gasstation.service.SyncService;
+package com.belentpatrus.gasstation.controller.util;
+import com.belentpatrus.gasstation.service.util.MerchandiseItemSaleExcelReaderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

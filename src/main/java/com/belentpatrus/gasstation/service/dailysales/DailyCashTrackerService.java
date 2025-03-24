@@ -1,7 +1,7 @@
-package com.belentpatrus.gasstation.service;
+package com.belentpatrus.gasstation.service.dailysales;
 
 import com.belentpatrus.gasstation.model.inventory.DailyCashTracker;
-import com.belentpatrus.gasstation.repository.DailyCashTrackerRepository;
+import com.belentpatrus.gasstation.repository.dailysales.DailyCashTrackerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

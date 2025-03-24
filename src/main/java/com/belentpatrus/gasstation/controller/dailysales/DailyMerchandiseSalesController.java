@@ -1,9 +1,9 @@
-package com.belentpatrus.gasstation.controller;
+package com.belentpatrus.gasstation.controller.dailysales;
 
 
 import com.belentpatrus.gasstation.model.dailysales.enums.Department;
-import com.belentpatrus.gasstation.service.DailyMerchandiseSalesSummaryService;
-import com.belentpatrus.gasstation.service.SyncService;
+import com.belentpatrus.gasstation.service.dailysales.DailyMerchandiseSalesSummaryService;
+import com.belentpatrus.gasstation.service.util.SyncService;
 import com.belentpatrus.gasstation.service.dto.DailyMerchandiseSalesSummaryDTO;
 import com.belentpatrus.gasstation.service.dto.SyncDailyMerchandiseSalesAndProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
