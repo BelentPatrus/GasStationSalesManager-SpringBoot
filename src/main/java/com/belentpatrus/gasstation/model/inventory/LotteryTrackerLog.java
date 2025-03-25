@@ -77,6 +77,16 @@ public class LotteryTrackerLog {
     }
 
 
+    public void transferEODData(LotteryTrackerLog log) {
+        this.morningCount2 = log.getEodCount2();
+        this.morningCount3 = log.getEodCount3();
+        this.morningCount5 = log.getEodCount5();
+        this.morningCount10 = log.getEodCount10();
+        this.morningCount20 = log.getEodCount20();
+        this.morningCount30 = log.getEodCount30();
+        this.morningCount50 = log.getEodCount50();
+        this.morningCount100 = log.getEodCount100();
+        morningLogComplete = true;
 
-
+    }
 }

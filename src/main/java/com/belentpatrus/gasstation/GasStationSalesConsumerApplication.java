@@ -1,11 +1,16 @@
 package com.belentpatrus.gasstation;
 
+import com.belentpatrus.gasstation.model.inventory.LotteryTrackerLog;
+import com.belentpatrus.gasstation.repository.inventory.LotteryTrackerRepository;
 import com.belentpatrus.gasstation.service.util.EmailService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+
+import java.time.LocalDate;
+import java.time.Month;
 
 @SpringBootApplication
 public class GasStationSalesConsumerApplication {
@@ -100,5 +105,24 @@ public class GasStationSalesConsumerApplication {
             emailService.getEmailExcelReport();
         };
     }
+
+    @Bean
+    public CommandLineRunner commandLineRunnerLottery(LotteryTrackerRepository repo) {  // Inject the bean
+        return args -> {
+            LotteryTrackerLog lotteryTrackerLog = new LotteryTrackerLog(LocalDate.of(2025, Month.MARCH,23));
+            lotteryTrackerLog.setEodCount2(25);
+            lotteryTrackerLog.setEodCount3(25);
+            lotteryTrackerLog.setEodCount5(25);
+            lotteryTrackerLog.setEodCount10(25);
+            lotteryTrackerLog.setEodCount20(25);
+            lotteryTrackerLog.setEodCount30(25);
+            lotteryTrackerLog.setEodCount50(25);
+            lotteryTrackerLog.setEodCount100(25);
+            lotteryTrackerLog.setLogComplete(true);
+            repo.save(lotteryTrackerLog);
+        };
+    }
+
+
 
 }
