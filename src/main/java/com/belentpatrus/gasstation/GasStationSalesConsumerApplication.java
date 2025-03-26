@@ -1,8 +1,11 @@
 package com.belentpatrus.gasstation;
 
+import com.belentpatrus.gasstation.model.dailysales.enums.Department;
+import com.belentpatrus.gasstation.model.dailysales.enums.ProductCategory;
 import com.belentpatrus.gasstation.model.inventory.LotteryTrackerLog;
+import com.belentpatrus.gasstation.model.inventory.Product;
 import com.belentpatrus.gasstation.repository.inventory.LotteryTrackerRepository;
-import com.belentpatrus.gasstation.service.util.EmailService;
+import com.belentpatrus.gasstation.repository.inventory.ProductRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -99,27 +102,32 @@ public class GasStationSalesConsumerApplication {
 //    }
 
 
-    @Bean
-    public CommandLineRunner commandLineRunner(EmailService emailService) {  // Inject the bean
-        return args -> {
-            emailService.getEmailExcelReport();
-        };
-    }
+//    @Bean
+//    public CommandLineRunner commandLineRunner(EmailService emailService) {  // Inject the bean
+//        return args -> {
+//            emailService.getEmailExcelReport();
+//        };
+//    }
 
     @Bean
-    public CommandLineRunner commandLineRunnerLottery(LotteryTrackerRepository repo) {  // Inject the bean
+    public CommandLineRunner commandLineRunnerLottery(LotteryTrackerRepository repo, ProductRepository productRepository) {  // Inject the bean
         return args -> {
-            LotteryTrackerLog lotteryTrackerLog = new LotteryTrackerLog(LocalDate.of(2025, Month.MARCH,23));
-            lotteryTrackerLog.setEodCount2(25);
-            lotteryTrackerLog.setEodCount3(25);
-            lotteryTrackerLog.setEodCount5(25);
-            lotteryTrackerLog.setEodCount10(25);
-            lotteryTrackerLog.setEodCount20(25);
-            lotteryTrackerLog.setEodCount30(25);
-            lotteryTrackerLog.setEodCount50(25);
-            lotteryTrackerLog.setEodCount100(25);
+            LotteryTrackerLog lotteryTrackerLog = new LotteryTrackerLog(LocalDate.of(2025, Month.MARCH,24));
+            lotteryTrackerLog.setMorningCount2(50);
+            lotteryTrackerLog.setMorningCount3(25);
+            lotteryTrackerLog.setMorningCount5(212);
+            lotteryTrackerLog.setMorningCount10(454);
+            lotteryTrackerLog.setMorningCount20(20);
+            lotteryTrackerLog.setMorningCount30(116);
+            lotteryTrackerLog.setMorningCount50(7);
+            lotteryTrackerLog.setMorningCount100(3);
             lotteryTrackerLog.setLogComplete(true);
             repo.save(lotteryTrackerLog);
+
+            Product product = new Product("627925000702", "$10 EN ARGENT", "OLG", Department.LOTTERY_AND_GAMING, ProductCategory.SCRATCH_LOTTO, 10.00, 50);
+            productRepository.save(product);
+
+
         };
     }
 

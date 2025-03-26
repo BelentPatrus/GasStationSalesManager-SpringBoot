@@ -25,17 +25,7 @@ public class Product {
     private Department department;
     private ProductCategory productCategory;
     private double baseCost;
+    private int currentStock;
 
-    @ManyToOne
-    @JoinColumn(name = "inventory_id")
-    private Inventory inventory;
 
-    public Product(String upc, String description, String brand, Department department, ProductCategory productCategory, double baseCost) {
-        this.upc = upc;
-        this.description = description;
-        this.brand = brand;
-        this.department = department;
-        this.productCategory = productCategory;
-        this.baseCost = baseCost;
-    }
 }

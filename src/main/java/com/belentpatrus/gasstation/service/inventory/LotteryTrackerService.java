@@ -19,16 +19,8 @@ public class LotteryTrackerService {
 
     public LotteryTrackerLog getLotteryLog(LocalDate parsedDate) {
         return lotteryRepo.findById(parsedDate)
-                .orElse(getLotteryLogHelper(parsedDate));
+                .orElse(new LotteryTrackerLog(parsedDate));
 
     }
 
-    private LotteryTrackerLog getLotteryLogHelper(LocalDate parsedDate) {
-        LotteryTrackerLog log =  lotteryRepo.findById(parsedDate.minusDays(1)).orElse(null);
-        LotteryTrackerLog todayLog = new LotteryTrackerLog(parsedDate);
-        if (log != null && log.isLogComplete()) {
-            todayLog.transferEODData(log);
-        }
-        return todayLog;
-    }
 }
