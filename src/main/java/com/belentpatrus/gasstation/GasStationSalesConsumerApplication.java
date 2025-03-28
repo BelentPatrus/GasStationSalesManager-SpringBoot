@@ -121,6 +121,14 @@ public class GasStationSalesConsumerApplication {
             lotteryTrackerLog.setMorningCount30(116);
             lotteryTrackerLog.setMorningCount50(7);
             lotteryTrackerLog.setMorningCount100(3);
+            lotteryTrackerLog.setPacksOpened2(4);
+            lotteryTrackerLog.setPacksOpened3(5);
+            lotteryTrackerLog.setPacksOpened5(1);
+            lotteryTrackerLog.setPacksOpened10(0);
+            lotteryTrackerLog.setPacksOpened20(3);
+            lotteryTrackerLog.setPacksOpened30(0);
+            lotteryTrackerLog.setPacksOpened50(0);
+            lotteryTrackerLog.setPacksOpened100(0);
             lotteryTrackerLog.setLogComplete(true);
             repo.save(lotteryTrackerLog);
 
