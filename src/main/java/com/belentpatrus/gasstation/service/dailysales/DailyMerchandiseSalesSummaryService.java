@@ -48,6 +48,17 @@ public class DailyMerchandiseSalesSummaryService {
         return dailyMerchandiseSales.getMerchandiseItemSales().stream().filter(mis -> mis.getProductCategory().equals(productCategory)).mapToDouble(MerchandiseItemSale::getExtendedRetail).sum();
     }
 
+    public List<MerchandiseItemSaleDTO> getSalesByProductCategory(LocalDate date, ProductCategory productCategory){
+        List<MerchandiseItemSale> dailyMerchandiseSalesFromProductCategory = repo.findSalesByDateAndCategory(date, productCategory);
+        List<MerchandiseItemSaleDTO> dtoList = dailyMerchandiseSalesFromProductCategory
+                .stream()
+                .map(MerchandiseItemSaleDTO::new)
+                .collect(Collectors.toList());
+
+        return dtoList;
+
+    }
+
     public DailyMerchandiseSalesSummaryDTO getDailyMerchandiseSalesSummary(LocalDate date) {
         DailyMerchandiseSales dailyMerchandiseSales = repo.findByDate(date).getFirst();
         DailyMerchandiseSalesSummaryDTO dto = new DailyMerchandiseSalesSummaryDTO(dailyMerchandiseSales.getDate(), dailyMerchandiseSales.getTotalExtendedRetail(), dailyMerchandiseSales.getTotalQuantitySold());

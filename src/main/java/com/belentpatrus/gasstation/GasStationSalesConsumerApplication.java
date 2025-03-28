@@ -6,6 +6,7 @@ import com.belentpatrus.gasstation.model.inventory.LotteryTrackerLog;
 import com.belentpatrus.gasstation.model.inventory.Product;
 import com.belentpatrus.gasstation.repository.inventory.LotteryTrackerRepository;
 import com.belentpatrus.gasstation.repository.inventory.ProductRepository;
+import com.belentpatrus.gasstation.service.util.EmailService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -102,12 +103,12 @@ public class GasStationSalesConsumerApplication {
 //    }
 
 
-//    @Bean
-//    public CommandLineRunner commandLineRunner(EmailService emailService) {  // Inject the bean
-//        return args -> {
-//            emailService.getEmailExcelReport();
-//        };
-//    }
+    @Bean
+    public CommandLineRunner commandLineRunner(EmailService emailService) {  // Inject the bean
+        return args -> {
+            emailService.getEmailExcelReport();
+        };
+    }
 
     @Bean
     public CommandLineRunner commandLineRunnerLottery(LotteryTrackerRepository repo, ProductRepository productRepository) {  // Inject the bean

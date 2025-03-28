@@ -8,4 +8,5 @@ import java.time.LocalDate;
 
 @Repository
 public interface LotteryTrackerRepository extends JpaRepository<LotteryTrackerLog, LocalDate> {
+
 }
