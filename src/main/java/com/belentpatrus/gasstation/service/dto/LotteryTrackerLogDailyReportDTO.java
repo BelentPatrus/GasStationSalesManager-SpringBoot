@@ -12,6 +12,8 @@ public class LotteryTrackerLogDailyReportDTO {
     private Map<String, Integer> yesterdayMorningCounts;
     private Map<String, Integer> todayMorningCounts;
     private Map<String, Integer> yesterdayReportedSales;
+    private Map<String, Integer> yesterdayOpenedTickets;
+    private Map<String, Integer> netCount;
 
 
 

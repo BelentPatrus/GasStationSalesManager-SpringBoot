@@ -50,10 +50,21 @@ public class LotteryTrackerService {
         report.setTodayDate(parsedDate);
         report.setYesterdayDate(parsedDate.minusDays(1));
         report.setTodayMorningCounts(loadMorningCount(todayLog));
+        report.setYesterdayOpenedTickets(loadpacksOpened(yesterdayLog));
         report.setYesterdayMorningCounts(loadMorningCount(yesterdayLog));
         report.setYesterdayReportedSales(loadReportedSales(parsedDate.minusDays(1)));
 
+        calculateNetCount(report);
+
         return report;
+    }
+
+    private void calculateNetCount(LotteryTrackerLogDailyReportDTO report) {
+        Map<String,Integer> netCount = new HashMap<>();
+        for(String key : report.getYesterdayMorningCounts().keySet()){
+            netCount.put(key,(report.getYesterdayMorningCounts().get(key) + report.getYesterdayOpenedTickets().get(key)) - report.getYesterdayReportedSales().getOrDefault(key,0) );
+        }
+        report.setNetCount(netCount);
     }
 
     private Map<String, Integer> loadReportedSales(LocalDate localDate) {
@@ -62,11 +73,7 @@ public class LotteryTrackerService {
         for(MerchandiseItemSaleDTO item : sales){
             int partialKey = (int) item.getUnitRetail();
             String fullKey = "$"+partialKey;
-            if(ticketsSold.get(fullKey) == null){
-                ticketsSold.put(fullKey,item.getQuantitySold());
-            }else{
-                ticketsSold.put(fullKey,ticketsSold.get(fullKey) + item.getQuantitySold());
-            }
+            ticketsSold.merge(fullKey, item.getQuantitySold(), Integer::sum);
         }
         return ticketsSold;
     }
@@ -83,6 +90,21 @@ public class LotteryTrackerService {
         morningCount.put("$50",log.getMorningCount50());
         morningCount.put("$100",log.getMorningCount100());
         return morningCount;
+
+    }
+
+    private Map<String,Integer> loadpacksOpened(LotteryTrackerLog log){
+        Map<String,Integer> packsOpened = new HashMap<>();
+        packsOpened.put("$2",log.getPacksOpened2());
+        packsOpened.put("$3",log.getPacksOpened3());
+        packsOpened.put("$4",log.getPacksOpened4());
+        packsOpened.put("$5",log.getPacksOpened5());
+        packsOpened.put("$10",log.getPacksOpened10());
+        packsOpened.put("$20",log.getPacksOpened20());
+        packsOpened.put("$30",log.getPacksOpened30());
+        packsOpened.put("$50",log.getPacksOpened50());
+        packsOpened.put("$100",log.getPacksOpened100());
+        return packsOpened;
 
     }
 
